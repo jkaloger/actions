@@ -1,0 +1,66 @@
+name: 🕊️ Bevy CI
+description: Runs clippy and test suite
+
+on:
+  workflow_call:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  formatting:
+    name: 🌈 Check Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: 📦 Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }} 
+
+      - name: 🌈 Check format
+        shell: bash
+        run: cargo fmt --check
+  clippy:
+    name: 📎 Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: 📦 Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }} 
+
+      - name: 📎 Clippy
+        shell: bash
+        run: cargo clippy
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: 📦 Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }} 
+
+      - name: 🧪 Run tests
+        run: cargo test
