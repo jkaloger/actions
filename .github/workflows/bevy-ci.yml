@@ -43,6 +43,9 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }} 
 
+      - name: 📦 Install Bevy Dependencies
+        uses: bevyengine/bevy/.github/actions/install-linux-deps@9a0bfc6f14241d58e6d4d1bc7ce72ebaa673b695
+
       - name: 📎 Clippy
         shell: bash
         run: cargo clippy
@@ -61,6 +64,9 @@ jobs:
             ~/.cargo/git
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }} 
+
+      - name: 📦 Install Bevy Dependencies
+        uses: bevyengine/bevy/.github/actions/install-linux-deps@9a0bfc6f14241d58e6d4d1bc7ce72ebaa673b695
 
       - name: 🧪 Run tests
         run: cargo test
